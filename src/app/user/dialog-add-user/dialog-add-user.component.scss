@@ -1,0 +1,12 @@
+.mat-dialog-content {
+    padding-top: 4px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.mat-dialog-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}

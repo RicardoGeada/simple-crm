@@ -1,0 +1,63 @@
+<h2 mat-dialog-title>Add user</h2>
+<mat-dialog-content class="mat-dialog-content">
+  <div class="mat-dialog-row">
+    <!-- first name -->
+    <mat-form-field appearance="outline">
+      <mat-label>First Name</mat-label>
+      <input [(ngModel)]="user.firstName" matInput placeholder="First Name" />
+      <!-- <mat-hint>Enter your first name.</mat-hint> -->
+    </mat-form-field>
+    <!-- last name -->
+    <mat-form-field appearance="outline">
+      <mat-label>Last Name</mat-label>
+      <input [(ngModel)]="user.lastName" matInput placeholder="Last Name" />
+      <!-- <mat-hint>Enter your last name.</mat-hint> -->
+    </mat-form-field>
+  </div>
+
+  <!-- birth date -->
+  <mat-form-field appearance="outline">
+    <mat-label>Birth Date</mat-label>
+    <input [(ngModel)]="birthDate" matInput [matDatepicker]="picker">
+    <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+
+  <!-- address -->
+  <mat-form-field appearance="outline">
+    <mat-label>Street</mat-label>
+    <input [(ngModel)]="user.street" matInput placeholder="Street" />
+  </mat-form-field>
+
+  <div class="mat-dialog-row">
+    <mat-form-field appearance="outline">
+        <mat-label>Postal Code</mat-label>
+        <input [(ngModel)]="user.zipCode" matInput placeholder="Postal Code" />
+      </mat-form-field>
+    
+      <mat-form-field appearance="outline">
+        <mat-label>City</mat-label>
+        <input [(ngModel)]="user.city" matInput placeholder="City" />
+      </mat-form-field>
+  </div>
+  
+
+  <mat-form-field appearance="outline">
+    <mat-label>State / Region</mat-label>
+    <input [(ngModel)]="user.state" matInput placeholder="State / Region" />
+  </mat-form-field>
+
+  
+
+  <mat-form-field appearance="outline">
+    <mat-label>Country</mat-label>
+    <input [(ngModel)]="user.country" matInput placeholder="Country" />
+  </mat-form-field>
+  
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="saveUser()">Save</button>
+</mat-dialog-actions>
