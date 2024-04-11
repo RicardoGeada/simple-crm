@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { User } from '../../models/user.class';
 import { FormsModule } from '@angular/forms';
+import { UsersService } from '../../services/firebase/users.service';
 
 @Component({
   selector: 'app-dialog-add-user',
@@ -19,8 +20,13 @@ export class DialogAddUserComponent {
   user : User = new User();
   birthDate! : Date;
 
+  constructor(public usersService : UsersService) {
+
+  }
+
   saveUser() {
     this.user.birthDate = this.birthDate.getTime();
     console.log( 'user' , this.user);
+    this.usersService.addUser(this.user);
   }
 }

@@ -18,4 +18,17 @@ export class User {
         this.state = obj ? obj.state : '';
         this.country = obj ? obj.country : '';
     }
+
+    public toJSON() {
+        return {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            birthDate: this.birthDate,
+            street: this.street,
+            zipCode: this.zipCode,
+            city: this.city,
+            state: this.state,
+            country: this.country,
+        }
+    }
 }
