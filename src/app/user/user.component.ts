@@ -4,21 +4,30 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogAddUserComponent } from './dialog-add-user/dialog-add-user.component';
-// import { User } from '../models/user.class';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+import { UsersService } from './../services/firebase/users.service';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet, RouterModule } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatTooltipModule, MatDialogModule, DialogAddUserComponent],
+  imports: [MatIconModule, MatButtonModule, MatTooltipModule, MatDialogModule, DialogAddUserComponent, MatCardModule, MatTableModule, CommonModule, RouterModule],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
+
+
+
 export class UserComponent {
 
-  // user : User = new User();
+  displayedColumns: string[] = ['name', 'email'];
 
-  constructor (public dialog: MatDialog) {
-    
+  constructor (public dialog: MatDialog, public usersService : UsersService) {
+
   }
 
   openDialog() {
