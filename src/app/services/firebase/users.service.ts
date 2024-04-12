@@ -8,6 +8,7 @@ import { User } from '../../models/user.class';
 export class UsersService {
 
   firestore: Firestore = inject(Firestore);
+  loading = false;
 
   constructor() { }
 
@@ -18,13 +19,16 @@ export class UsersService {
   // CREATE
   async addUser(user : User) {
     let ref = this.getUsersRef();
+    this.loading = true;
     await addDoc(ref, user.toJSON()).catch(
       (err) => {
         console.error(err);
+        this.loading = false;
       }
     ).then(
       (docRef) => {
         console.log('Document written with ID: ', docRef?.id);
+        this.loading = false;
       }
     )
   }
