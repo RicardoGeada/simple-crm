@@ -4,6 +4,7 @@ import {
   collection,
   addDoc,
   onSnapshot,
+  doc,
 } from '@angular/fire/firestore';
 import { User } from '../../models/user.class';
 
@@ -27,6 +28,18 @@ export class UsersService {
   firestore: Firestore = inject(Firestore);
   loading = false;
   users: UserInterface[] = [];
+  user : UserInterface = {
+    id : '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    birthDate: 0,
+    street: '',
+    zipCode: 0,
+    city: '',
+    state: '',
+    country: '',
+  };
 
   unsubUsers;
 
@@ -42,6 +55,10 @@ export class UsersService {
 
   getUsersRef() {
     return collection(this.firestore, 'users');
+  }
+
+  getUserRef(userId : string) {
+    return doc(collection(this.firestore, 'users'), userId)
   }
 
   // CREATE
@@ -84,5 +101,12 @@ export class UsersService {
       });
       console.log(this.users);
     });
+  }
+
+  subUser(userId : string) {
+    return onSnapshot(this.getUserRef(userId), (user) => {
+      this.user = this.setUser(user.data(), userId);
+      console.log('User: ', this.user);
+    })
   }
 }

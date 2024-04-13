@@ -1,0 +1,33 @@
+.user-detail-header {
+    min-height: 300px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.profile-img-container {
+    aspect-ratio: 1 / 1;
+    max-width: 80px;
+    overflow: hidden;
+    border-radius: 100%;
+    img {
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
+.user-detail-infos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 16px;
+    .user-name {
+        margin-bottom: 0;
+    }
+}
+
+.user-detail-address {
+    margin-top: 32px;
+}
+
+
+
