@@ -5,11 +5,12 @@ import {
   addDoc,
   onSnapshot,
   doc,
+  updateDoc,
 } from '@angular/fire/firestore';
 import { User } from '../../models/user.class';
 
 export interface UserInterface {
-  id? : string;
+  id?: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -28,18 +29,7 @@ export class UsersService {
   firestore: Firestore = inject(Firestore);
   loading = false;
   users: UserInterface[] = [];
-  user : UserInterface = {
-    id : '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    birthDate: 0,
-    street: '',
-    zipCode: 0,
-    city: '',
-    state: '',
-    country: '',
-  };
+  user: User = new User();
 
   unsubUsers;
 
@@ -57,8 +47,8 @@ export class UsersService {
     return collection(this.firestore, 'users');
   }
 
-  getUserRef(userId : string) {
-    return doc(collection(this.firestore, 'users'), userId)
+  getUserRef(userId: string) {
+    return doc(collection(this.firestore, 'users'), userId);
   }
 
   // CREATE
@@ -77,7 +67,7 @@ export class UsersService {
   }
 
   // READ
-  setUser(obj: any, id? : string): UserInterface {
+  setUser(obj: any, id?: string): UserInterface {
     return {
       id: id || '',
       firstName: obj.firstName || '',
@@ -97,16 +87,31 @@ export class UsersService {
       this.users = [];
       usersList.forEach((user) => {
         // console.log('User Object: ',user.data());
-        this.users.push(this.setUser(user.data(), user.id));
+        let userCopy = new User(user.data());
+        userCopy.id = user.id;
+        this.users.push(userCopy);
+        // this.users.push(this.setUser(user.data(), user.id));
       });
       console.log(this.users);
     });
   }
 
-  subUser(userId : string) {
+  subUser(userId: string) {
     return onSnapshot(this.getUserRef(userId), (user) => {
-      this.user = this.setUser(user.data(), userId);
+      let userCopy = new User(user.data());
+      userCopy.id = user.id;
+      this.user = userCopy;
       console.log('User: ', this.user);
-    })
+    });
+  }
+
+  //UPDATE
+  async updateUser(user: User, userId : string) {
+    if (userId) {
+      let docRef = this.getUserRef(userId);
+      await updateDoc(docRef, user.toJSON()).catch((err) => {
+        console.error(err);
+      });
+    }
   }
 }
